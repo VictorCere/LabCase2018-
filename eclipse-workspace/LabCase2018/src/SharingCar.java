@@ -35,7 +35,35 @@ public class SharingCar {
 	}
 
 	
-	public void sort() {}
+	public void sort(LstRequest lista1,int parametro) {
+		if (parametro==1) {
+		LstRequest newList= new LstRequest();
+		int contadorInser=0;
+		for (Request nodeIt1= lista1.header.next; nodeIt1 != lista1.trailer; nodeIt1 = nodeIt1.next) {
+			for	(Request nodeIt2=newList.header.next;nodeIt2!=newList.trailer;nodeIt2=nodeIt2.next) {
+				if (nodeIt1.Origen.compareTo(nodeIt2.Origen)<0) {
+					newList.insertAt(contadorInser, nodeIt1.Origen, nodeIt1.Destino, nodeIt1.idUsuario);
+					contadorInser=0;
+				}
+				contadorInser++;
+			}
+			
+		}
+		}
+		if (parametro==2) {		
+			LstRequest newList= new LstRequest();
+			int contadorInser=0;
+			for (Request nodeIt1= lista1.header.next; nodeIt1 != lista1.trailer; nodeIt1 = nodeIt1.next) {
+				for	(Request nodeIt2=newList.header.next;nodeIt2!=newList.trailer;nodeIt2=nodeIt2.next) {
+					if (nodeIt1.Destino.compareTo(nodeIt2.Destino)<0) {
+						newList.insertAt(contadorInser, nodeIt1.Origen, nodeIt1.Destino, nodeIt1.idUsuario);
+						contadorInser=0;
+					}
+					contadorInser++;
+				}	
+			}			
+		}
+	}
 	public LstRequest removeDuplicates(LstRequest lista1) {
 		int index=0;
 		LstRequest newList= new LstRequest();
