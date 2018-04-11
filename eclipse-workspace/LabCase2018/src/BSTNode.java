@@ -1,11 +1,7 @@
 public class BSTNode implements IBSTNode {
 
 	Integer key;
-	String Username;
-	String Full_name;
-	int Age;
-	int Gender;
-	int NComplains;
+	User Usuario;
 	
 
 	BSTNode parent;
@@ -14,11 +10,7 @@ public class BSTNode implements IBSTNode {
 
 	public BSTNode(Integer k, String Username ,String Full_name,int Age,int Gender,int NComplains) {
 		key = k;
-		this.Username=Username;
-		this.Full_name=Full_name;
-		this.Age=Age;
-		this.Gender=Gender;
-		this.NComplains=NComplains;
+		this.Usuario=new User(Username ,Full_name,Age,Gender,NComplains);
 	}
 
 	public boolean isInternal() {
