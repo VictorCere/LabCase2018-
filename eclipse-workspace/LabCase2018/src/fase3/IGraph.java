@@ -20,7 +20,7 @@ public interface IGraph {
 	public int getOutDegree(int i);
 		
 	//create a new vertex
-	public void addVertex();
+	public void addVertex(String a);
 	//create an edge between the vertices i and j
 	public void addEdge(int i, int j);
 	//create an edge between the vertices i and j with weight w

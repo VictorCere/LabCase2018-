@@ -5,6 +5,7 @@ import Linear.SQueue;
 import Linear.DNodeVertex;
 import Linear.DListVertex;
 import fase1.LstRequest;
+import fase1.Request;
 
 public class GraphLA implements IGraph {
 	
@@ -18,7 +19,7 @@ public class GraphLA implements IGraph {
 	
 	public GraphLA(String a[]) {
 		int n=a.length;
-		int max=n;
+		int max=10;
 		if (max<=0) 
 			throw new IllegalArgumentException("Negative maximum number of vertices!!!");
 		if (n<=0) 
@@ -32,25 +33,80 @@ public class GraphLA implements IGraph {
 		numVertices=n;
 		//creates each list
 		for (int i=0; i<numVertices;i++) {
-			vertices[i]=new DListVertex(a[i]);
+			vertices[i]=new DListVertex(citytonumber(a[i]));
 		}
 		directed=true;
 	}
-	
-	
-	public void setTravels(LstRequest offers){
-		
-		
+	public int citytonumber(String a){
+		if (a.equals("Madrid")) {return 0;}
+		if (a.equals("Barcelona")) {return 1;}
+		if (a.equals("Valencia")) {return 2;}
+		if (a.equals("Sevilla")) {return 3;}
+		if (a.equals("Bilbao")) {return 4;}
+		if (a.equals("Granada")) {return 5;}
+		if (a.equals("Toledo")) {return 6;}
+		if (a.equals("Salamanca")) {return 7;}
+		if (a.equals("Alicante")) {return 8;}
+		if (a.equals("Cáceres")) {return 9;}
+		else {return -1;}
+	}
+	public String numbertocity(int a) {
+		if (a==0) {return "Madrid" ; }
+		if (a==1) {return "Barcelona"; }
+		if (a==2) {return "Valencia"; }
+		if (a==3) {return "Sevilla"; }
+		if (a==4) {return "Bilbao"; }
+		if (a==5) {return "Granada"; }
+		if (a==6) {return "Toledo"; }
+		if (a==7) {return "Salamanca"; }
+		if (a==8) {return "Alicante"; }
+		if (a==8) {return "Cáceres"; }
+		return "a";
 	}
 	
+	public void setTravels(LstRequest offers){
+		for (int i=0;i<offers.getSize();i++) {
+			Request Node=offers.getAt(i);
+			addEdge(citytonumber(Node.Origen),citytonumber(Node.Destino),1);
+		}	
+	}
+	public String[] getListDestination(String city) {
+		int[] y=getAdjacents(citytonumber(city));
+		String[] x=new String[y.length];
+		for (int i=0;i< y.length;i++) {
+			x[i]=numbertocity(y[i]);
+		}
+		return x;
+		}
 	
-	public void addVertex() {
+	public String[] getListOrigin(String city) {
+		int ciudad=citytonumber(city);
+		String[] x=new String[10];
+		int counter=0;
+		for (int i=0;i<numVertices;i++) {
+			if(isEdge(ciudad,i)) {
+				x[counter]=numbertocity(i);
+				counter++;
+			}
+		}
+		return x;	
+		
+	}	
+		
+	public void getAllCities(){
+		depth();
+	}
+	public void nonConnectedCities() {}
+	
+	
+	
+	public void addVertex(String a) {
 		if (numVertices==maxVertices) {
 			System.out.println("Cannot add new vertices!!!");
 			return;
 		}
 		numVertices++;
-		vertices[numVertices-1]=new DListVertex(); 
+		vertices[numVertices-1]=new DListVertex(citytonumber(a)); 
 	}
 		
 	@Override
@@ -121,12 +177,12 @@ public class GraphLA implements IGraph {
 			
 			int index=vertices[i].getIndexOf(j);
 			DNodeVertex node=vertices[i].getAt(index);
-			node.weight=w;
+			node.weight=node.weight+w;
 			
 			if (!directed) {
 				index=vertices[j].getIndexOf(i);
 				node=vertices[j].getAt(index);
-				node.weight=w;
+				node.weight=node.weight+w;
 			}
 		} else {
 			vertices[i].addLast(j,w);
@@ -247,23 +303,29 @@ public class GraphLA implements IGraph {
 		}
 	}
 	
-	public void depth() {
+	public String[] depth() {
 		System.out.println("depth traverse of the graph:");
+		String[] x=new String[numVertices];
+		int counter=0;
 		//to mark when a vertex has already been shown
 		boolean visited[]=new boolean[numVertices];
 		//we have to traverse all vertices
 		for (int i=0;i<numVertices;i++) {
 			if (!visited[i]) {
-				depth(i,visited);
+				x[counter]=numbertocity(depth(i,visited));
+				counter++;
+				
+				
 			}
 		}
 		System.out.println();
+		return x;
 
 	}
 	
 	
 
-	protected void depth(int i,boolean[] visited) {
+	protected int depth(int i,boolean[] visited) {
 		//prints the vertex and marks as visited
 		System.out.print(i+"\t");
 		visited[i]=true;
@@ -277,13 +339,14 @@ public class GraphLA implements IGraph {
 				
 			}
 		}
+		return i;
 	}
 	
 	
 	
 	
 	public static void main(String args[]) {
-		GraphLA graph=new GraphLA(8,8,true);
+		//GraphLA graph=new GraphLA(8,8,true);
 		//graph.show();
 //code for creating a graph with random weights
 //		Random rn=new Random();

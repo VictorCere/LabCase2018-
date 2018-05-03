@@ -9,15 +9,14 @@ public class DListVertex implements IList {
 
 	DNodeVertex header;
 	DNodeVertex trailer;
-	String Ciudad;
 	int size=0;
-
-	public DListVertex(String Ciudad) {
+	int city;
+	public DListVertex(int a) {
 		header = new DNodeVertex(null,null);
 		trailer = new DNodeVertex(null,null);
 		header.next = trailer;
 		trailer.prev= header;
-		this.Ciudad=Ciudad;
+		this.city=a;
 	}
 	
 
