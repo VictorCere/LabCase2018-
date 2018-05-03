@@ -1,3 +1,4 @@
+package fase1;
 
 public class SharingCar {
 	public LstRequest mergeAlternateRequest(LstRequest lista1,LstRequest lista2) {
@@ -35,7 +36,7 @@ public class SharingCar {
 	}
 
 	
-	public void sort(LstRequest lista1,int parametro) {
+	public LstRequest sort(LstRequest lista1,int parametro) {
 		if (parametro==1) {
 		LstRequest newList= new LstRequest();
 		int contadorInser=0;
@@ -49,6 +50,7 @@ public class SharingCar {
 			}
 			
 		}
+		return newList;
 		}
 		if (parametro==2) {		
 			LstRequest newList= new LstRequest();
@@ -61,8 +63,10 @@ public class SharingCar {
 					}
 					contadorInser++;
 				}	
-			}			
+			}
+			return newList;
 		}
+		else {return null;}
 	}
 	public LstRequest removeDuplicates(LstRequest lista1) {
 		int index=0;

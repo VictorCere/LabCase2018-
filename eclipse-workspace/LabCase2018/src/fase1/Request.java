@@ -1,3 +1,4 @@
+package fase1;
 
 public class Request {
 	
@@ -13,5 +14,4 @@ public class Request {
 		this.Destino=Destino;
 		this.idUsuario=idUsuario;
 	}
-
 }

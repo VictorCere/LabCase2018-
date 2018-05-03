@@ -1,3 +1,4 @@
+package fase2;
 public interface IBSTNode {
 
 	/* number of nodes in its subtree */

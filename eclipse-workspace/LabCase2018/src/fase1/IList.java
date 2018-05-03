@@ -1,3 +1,4 @@
+package fase1;
 public interface IList {
 
 	public void addFirst(String Origen,String Destino,String idUsuario);

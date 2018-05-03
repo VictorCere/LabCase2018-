@@ -1,3 +1,4 @@
+package fase2;
 
 public class BSTree implements IBSTree {
 
@@ -41,43 +42,43 @@ public class BSTree implements IBSTree {
 		return root.getDepth();
 	}
 
-	public void insert(Integer key, int element) {
-		BSTNode newNode = new BSTNode(key, element);
+	public void insertuser(String Username ,String Full_name,int Age,int Gender,int NComplains) {
+		BSTNode newNode = new BSTNode(Username,Full_name,Age,Gender,NComplains);
 		if (root == null)
 			root = newNode;
 		else
-			insert(newNode, root);
+			insertuser(newNode, root);
 	}
 
-	public void insert(BSTNode newNode, BSTNode node) {
-		Integer key = newNode.key;
-		if (key.compareTo(node.key) == 0) {
-			System.out.println(key + " already exists. Duplicates are not allowed!!!.");
+	public void insertuser(BSTNode newNode, BSTNode node) {
+		String Username=newNode.Username;
+		if (Username.compareToIgnoreCase(node.Username)== 0) {
+			System.out.println(Username + " already exists. Duplicates are not allowed!!!.");
 			return;
 		}
-		if (key.compareTo(node.key) < 0) {
+		if (Username.compareToIgnoreCase(node.Username)<0) {
 			if (node.left == null) {
 				node.left = newNode;
 				newNode.parent = node;
 			} else
-				insert(newNode, node.left);
+				insertuser(newNode, node.left);
 		} else {
 			if (node.right == null) {
 				node.right = newNode;
 				newNode.parent = node;
 			} else
-				insert(newNode, node.right);
+				insertuser(newNode, node.right);
 		}
 	}
 
-	public void remove(Integer key) {
+	public void removeUser(String Username) {
 		if (root == null) {
 			System.out.println("Cannot remove: The tree is empty");
 			return;
 		}
-		if (key.equals(root.key)) {
-			if (root.left == null && root.right == null)
-				root = null;
+		if (Username.compareToIgnoreCase(root.Username)==0) {
+			if (root.left == null && root.right == null) {
+				root = null;}
 			else if (root.left == null || root.left == null) {
 				if (root.left == null)
 					root = root.right;
@@ -85,22 +86,22 @@ public class BSTree implements IBSTree {
 					root = root.left;
 				root.parent = null;
 			} else {
-				remove(key, root);
+				removeUser(Username, root);
 			}
 		} else
-			remove(key, root);
+			removeUser(Username, root);
 	}
 
-	public boolean remove(Integer key, BSTNode node) {
+	public boolean removeUser(String Username, BSTNode node) {
 		if (node == null) {
 			System.out.println("Cannot remove: The key doesn't exist");
 			return false;
 		}
-		if (key.compareTo(node.key) < 0)
-			return remove(key, node.left);
+		if (Username.compareToIgnoreCase(node.Username) < 0)
+			return removeUser(Username, node.left);
 
-		if (key.compareTo(node.key) > 0)
-			return remove(key, node.right);
+		if (Username.compareToIgnoreCase(node.Username)> 0)
+			return removeUser(Username, node.right);
 		//Here, it means that key.compareTo(node.Key)==0
 		//That is, we already have found it: node is the node to remove.
 
@@ -116,7 +117,6 @@ public class BSTree implements IBSTree {
 			node.parent = null; //is is not necessary, because Java has automatic garbage collection
 			return true;
 		}
-
 		//Second case is one the node only has a child: left or right
 		if (node.left == null || node.right == null) {
 			//its only child is its right child
@@ -140,9 +140,12 @@ public class BSTree implements IBSTree {
 		//We can replace its value by the maximum value in its left child or
 		//by the minimum value in its right child
 		BSTNode sucesorNode = findMin(node.right);
-		node.elem = sucesorNode.elem;
-		node.key = sucesorNode.key;
-		remove(sucesorNode.key, node.right);
+		node.User.Full_name = sucesorNode.User.Full_name;
+		node.User.Age = sucesorNode.User.Age;
+		node.User.Gender = sucesorNode.User.Gender;
+		node.User.NComplains = sucesorNode.User.NComplains;
+		node.Username = sucesorNode.Username;
+		removeUser(sucesorNode.Username, node.right);
 		return true;
 		//Finally, we must remove the sucesorNode
 	}
@@ -177,50 +180,133 @@ public class BSTree implements IBSTree {
 		return findRecMax(node.right);
 	}
 
-	public int find(Integer key) {
-		return find(root, key);
+/*	public BSTNode findUser(String Full_name) {
+		return findUser(root, Full_name);
 	}
 
-	public int find(BSTNode node, Integer key) {
-		if (node == null)
-			return -1;
-		else if (key.compareTo(node.key) < 0)
-			return find(node.left, key);
-		else if (key.compareTo(node.key) > 0)
-			return find(node.right, key);
-		else
-			return node.elem;
-	}
-
-	public int findIt(Integer key) {
-		BSTNode searchNode = root;
-		while (searchNode != null) {
-			int keyVisit = searchNode.key;
-			if (key == keyVisit)
-				return searchNode.elem;
-			else if (key < keyVisit)
-				searchNode = searchNode.left;
-			else if (key > keyVisit)
-				searchNode = searchNode.right;
+	public BSTNode findUser(BSTNode node, String Full_name) {
+		if (node == null)return null;
+		findUser(node.left,Full_name);
+		if (node.Full_name==Full_name) {
+			System.out.println(" \"Usuario: node.Username\"+\"Nombre: node.Full_name\"+\"Edad: node.Age\"+\"Genero: node.Gender\"+\"Quejas:   node.User.NComplains\";");
+			return node;
 		}
-		System.out.println(key + " does not exist");
-		return -1;
+		
+		findUser(node.right,Full_name);
+		return null;
+	}	*/
+
+	public BSTNode findUser(String Username) {
+		return findUser(root, Username);
 	}
 
-	public void printChild10() {
-		printChild10(root);
+	public BSTNode findUser(BSTNode node, String Username) {
+		if (node == null)
+			return null;
+		else if (Username.compareToIgnoreCase(node.Username)< 0)
+			return findNode(node.left, Username);
+		else if (Username.compareToIgnoreCase(node.Username)> 0)
+			return findNode(node.right,Username );
+		else
+			return node;
 	}
-
-	public void printChild10(BSTNode node) {
+	
+	public BSTNode findNode(BSTNode node, String Username) {
+	if (node == null)
+			return null;
+		else if (Username.compareToIgnoreCase(node.Username)< 0)
+			return findNode(node.left, Username);
+		else if (Username.compareToIgnoreCase(node.Username)> 0)
+			return findNode(node.right,Username );
+		else
+			return node;
+	}
+	
+	public void complaint(String Username) {
+		BSTNode newNode=findNode(root,Username);
+		if(newNode.User.NComplains>3) {
+			removeUser(newNode.Username);			
+		}
+		else {
+			newNode.User.NComplains++;
+		}
+		
+	}
+	public void show() {
+		show(root);
+	}
+	public void show(BSTNode node) {
+		node=root;
 		if (node == null)
 			return;
-		if (node.parent != null && node.parent.parent != null && node.parent.parent.key % 10 == 0)
-			System.out.println(node.elem);
-		printChild10(node.left);
-		printChild10(node.right);
+		show(node.left);
+		System.out.println(node.Username+", ");
+		show(node.right);
+	}
+	
+
+	public void showLevel() {
+		
+		if (root != null)
+			for (int i = 0; i < root.getHeight(root); i++)
+				showLevel(root, i);
 	}
 
-	public int sumAll() {
+	public void showLevel(BSTNode node, int level) {
+		if (node != null) {
+			if (level == 0)
+				System.out.println(node.Username+(", "));
+			else {
+				showLevel(node.left, level - 1);
+				showLevel(node.right, level - 1);
+			}
+		}
+	}
+	public DList[] extremeUsers() {
+		int[] i = new int[1];
+		DList[] e=new DList[1];
+		int cont=0;
+		 i=extremeUsersminmax(root,6,0,i);
+		 e=extremeUsers(root,i,e,cont);
+		 return e;
+		 
+		 
+	}
+	public int[] extremeUsersminmax(BSTNode node,int min,int max,int[] i) {
+		if (node == null)return null;
+		show(node.left);
+		if (node.User.NComplains<min || node.User.NComplains>max) {
+			if (node.User.NComplains>max) {
+				i[1]=node.User.NComplains;
+			}
+			if (node.User.NComplains<min){
+				i[0]=node.User.NComplains;
+			}
+		}
+		show(node.right);
+		
+		return i;
+	}
+	
+	
+	public DList[] extremeUsers(BSTNode node,int[] i,DList[] e,int cont) {
+		if (node == null)return null;
+		show(node.left);
+			if (node.User.NComplains==i[1]) {
+				e[1].insertAt(cont,node.Username);
+			}
+			if (node.User.NComplains==i[0]){
+				e[0].insertAt(cont,node.Username);
+			}
+		show(node.right);
+		
+		return e;
+	}
+	
+	
+	
+	
+/*	public int sumAll() {
 		return sumAll(root);
 	}
 
@@ -289,6 +375,6 @@ public class BSTree implements IBSTree {
 		if (node == null)
 			return true;
 		return balanceFactorHeight(node) <= 1 && isBalanceHeight(node.left) && isBalanceHeight(node.right);
-	}
+	}*/
 
 }
