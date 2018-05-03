@@ -67,7 +67,7 @@ public class GraphLA implements IGraph {
 	public void setTravels(LstRequest offers){
 		for (int i=0;i<offers.getSize();i++) {
 			Request Node=offers.getAt(i);
-			addEdge(citytonumber(Node.Origen),citytonumber(Node.Destino),1);
+			addEdge(citytonumber(Node.origin),citytonumber(Node.destination),1);
 		}	
 	}
 	public String[] getListDestination(String city) {
@@ -372,7 +372,7 @@ public class GraphLA implements IGraph {
 
 
 		//row 0
-		graph.addEdge(0, 1, 1);
+		/*graph.addEdge(0, 1, 1);
 		graph.addEdge(0, 2, 2);
 		
 		graph.addEdge(1, 2, 1);
@@ -383,7 +383,7 @@ public class GraphLA implements IGraph {
 
 		graph.addEdge(7,6, 1);
 		
-		graph.show();
+		graph.show();*/
 		
 //		System.out.println("Vertices:" + graph.sizeVertices());
 //		System.out.println("total edges:" + graph.sizeEdges());
@@ -397,8 +397,8 @@ public class GraphLA implements IGraph {
 //		}
 		
 		System.out.println();
-		graph.breadth();
-		graph.depth();
+		/*graph.breadth();
+		graph.depth();*/
 	}
 	 
 	

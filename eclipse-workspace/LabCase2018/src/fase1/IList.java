@@ -3,7 +3,7 @@ public interface IList {
 
 	public void addFirst(String Origen,String Destino,String idUsuario);
 	
-	public void addLast(String Origen,String Destino,String idUsuario);
+	public void addLast(Request request);
 
 	public void removeFirst();
 

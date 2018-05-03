@@ -22,12 +22,11 @@ public class LstRequest implements IList{
 		size++;
 	}
 
-	public void addLast(String Origen,String Destino,String idUsuario) {
-		Request newRequest = new Request(Origen,Destino,idUsuario);
-		newRequest.next = trailer;
-		newRequest.prev= trailer.prev;
-		trailer.prev.next = newRequest;
-		trailer.prev= newRequest;
+	public void addLast(Request request) {
+		request.next = trailer;
+		request.prev= trailer.prev;
+		trailer.prev.next = request;
+		trailer.prev= request;
 		size++;
 		
 	}
@@ -81,7 +80,7 @@ public class LstRequest implements IList{
 	public boolean contains(String Origen,String Destino,String idUsuario) {
 		boolean found=false;
 		for (Request nodeIt = header.next; nodeIt != trailer && found==false; nodeIt = nodeIt.next) {
-			if (nodeIt.Origen==Origen && nodeIt.Destino==Destino && nodeIt.idUsuario==idUsuario) {
+			if (nodeIt.origin==Origen && nodeIt.destination==Destino && nodeIt.username==idUsuario) {
 				found=true;
 			}
 		}
@@ -96,7 +95,7 @@ public class LstRequest implements IList{
 		int index = -1;
 		int pos=0;
 		for (Request nodeIt = header.next; nodeIt != trailer && index==-1; nodeIt = nodeIt.next) {
-			if (nodeIt.Origen==Origen && nodeIt.Destino==Destino && nodeIt.idUsuario==idUsuario) {
+			if (nodeIt.origin==Origen && nodeIt.destination==Destino && nodeIt.username==idUsuario) {
 				index=pos;
 			} 
 			++pos;
@@ -139,7 +138,7 @@ public class LstRequest implements IList{
 	
 	public void removeAll(String Origen,String Destino,String idUsuario) {
 		for (Request nodeIt = header.next; nodeIt != trailer; nodeIt = nodeIt.next) {
-			if (nodeIt.Origen==Origen && nodeIt.Destino==Destino && nodeIt.idUsuario==idUsuario) {
+			if (nodeIt.origin==Origen && nodeIt.destination==Destino && nodeIt.username==idUsuario) {
 				nodeIt.prev.next = nodeIt.next;
 				nodeIt.next.prev= nodeIt.prev;
 				size--;
@@ -165,6 +164,17 @@ public class LstRequest implements IList{
 		}
 		if (!removed) System.out.println("DList: Deletion out of bounds");
 	}
-		
+	public boolean equals(LstRequest list) {
+        if (list==this) return true;
+        if (list.getSize()!=this.getSize()) return false;
+        for (int i=0; i<this.getSize(); i++) {
+              Request r1=this.getAt(i);
+              Request r2=list.getAt(i);
+              if (!r1.equals(r2)) return false;
+        }
+        return true;
+  }
+
+
 }
 

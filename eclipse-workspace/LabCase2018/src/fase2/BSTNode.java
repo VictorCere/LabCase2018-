@@ -7,7 +7,7 @@ public class BSTNode implements IBSTNode {
 	BSTNode left;
 	BSTNode right;
 
-	public BSTNode(String Username ,String Full_name,int Age,int Gender,int NComplains) {
+	public BSTNode(String Username ,String Full_name,int Age,String Gender,int NComplains) {
 		this.Username=Username;
 		this.User.Full_name=Full_name;
 		this.User.Age=Age;
